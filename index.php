@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +25,13 @@ include 'style.css';
    $query = "SELECT * FROM customer ORDER BY lastname";
    $result = mysqli_query($connection,$query);
 
+   // check if your query worked
+
    if (!$result) {
         die("databases query failed.");
    }
+
+   // display customer details
 
    while ($row = mysqli_fetch_assoc($result)) {
 
@@ -37,10 +42,17 @@ include 'style.css';
         echo "Agent ID: " . $row["agentID"] . "<br>" . "<br>";
 	
    }
-   mysqli_free_result($result);	
+
+   // reset result for the next loop
+
+   mysqli_free_result($result);
    $result = mysqli_query($connection,$query);
+
+
    echo "Detailed record of purchases: " . "<br>";
    echo "CustomerID: <select name = 'customerID'>";
+
+   // create an option button
 
    while ($row = mysqli_fetch_assoc($result)) {
 	echo "<option value = '".$row['customerID']."'>".$row['customerID']."</option>";
@@ -54,6 +66,8 @@ include 'style.css';
 </form>
 
 <h2>Product Information:</h2>
+
+<!-- Create 4 buttons that send the user to a new page to display product info -->
 
 <button onclick="window.location.href='question2a.php'">Purchases Ascending by Description</button>
 <button onclick="window.location.href='question2b.php'">Purchases Descending by Description </button>
@@ -110,6 +124,8 @@ Quantity Bought:
 
 <h2>Insert a new customer:</h2>
 
+<!-- create forms for user input -->
+
 <form action="question4.php" method="get">
 First Name:
 <input type="text" name="firstname" required>
@@ -128,6 +144,8 @@ Phone Number(###-####) :
    if (!$result) {
         die("databases query failed.");
    }
+
+   // create an option button for the agentID
 
    echo "AgentID: <select name = 'agentID'>";
 
@@ -156,6 +174,8 @@ Phone Number(###-####) :
         die("databases query failed.");
    }
 
+   // create an option for the customer
+
    echo "<select name = 'customerID'>";
 
    while ($row = mysqli_fetch_assoc($result)) {
@@ -166,6 +186,9 @@ Phone Number(###-####) :
 
 ?>
 </select>
+
+// Prompt the user for a form number of the correct form
+
 Insert the new phone number(###-####):
 <input type="text" name="phone" pattern="[0-9]{3}-[0-9]{4}" required>
 <input type="submit" value="Update Phone Number" >
@@ -184,6 +207,8 @@ Insert the new phone number(###-####):
         die("databases query failed.");
    }
 
+   // select the correct customer to delete
+
    echo "<select name = 'customerID'>";
 
    while ($row = mysqli_fetch_assoc($result)) {
@@ -201,6 +226,8 @@ Insert the new phone number(###-####):
 
 <form action="question7.php" method="get">
 
+<!-- prompt the user to enter the quantity -->
+
 Enter the Quantity: 
 <input type='number' name='quantity' min='1' max='9999' required>
 <input type='submit' name='Submit'>
@@ -208,6 +235,8 @@ Enter the Quantity:
 </form>
 
 <h2>List the description of any product that has never been purchased:</h2>
+
+<!-- Creates a button that shows the products that have never been purchased -->
 
 <button onclick="window.location.href='question8.php'">Products that have never been purchased</button>
 
